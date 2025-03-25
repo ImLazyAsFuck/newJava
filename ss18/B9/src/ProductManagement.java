@@ -53,13 +53,13 @@ public class ProductManagement{
             return;
         }
         for(Map.Entry<Integer, Product> entry : products.entrySet()){
-            System.out.println("ID" + entry.getKey() + " : Name" + entry.getValue().getProductName());
+            System.out.println("ID" + entry.getKey() + " : Name: " + entry.getValue().getProductName());
         }
 
         System.out.print("Enter product ID: ");
         int productId = Integer.parseInt(input.nextLine());
 
-        if(products.get(productId).getProductId() != productId){
+        if(products.get(productId).getProductId() == productId){
             products.remove(productId);
             System.out.println("Product removed successfully");
         }

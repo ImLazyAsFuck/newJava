@@ -11,9 +11,10 @@ public class B8{
         int number;
 
         while(true){
-            System.out.println("Enter number: ");
+            System.out.print("Enter number: ");
             number = Integer.parseInt(sc.nextLine());
-            if(number <= 0 || number > 1999){
+            if(number <= 0 || number > 4000){
+                System.out.println("Invalid number. Please choose from 0 to 4000.");
                 continue;
             }
             break;
@@ -42,5 +43,6 @@ public class B8{
             }
         }
 
+        System.out.println(romanNumber);
     }
 }

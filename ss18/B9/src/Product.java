@@ -16,6 +16,10 @@ public class Product{
         this.productQuantity = productQuantity;
     }
 
+    public void setProductId(int productId){
+        this.productId = productId;
+    }
+
     public int getProductId(){
         return productId;
     }
@@ -33,8 +37,6 @@ public class Product{
     }
 
     public void inputData(Scanner input){
-        System.out.print("Enter product ID: ");
-        this.productId = Integer.parseInt(input.nextLine());
         System.out.print("Enter product name: ");
         this.productName = input.nextLine();
         System.out.print("Enter product price: ");

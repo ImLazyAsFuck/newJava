@@ -2,13 +2,21 @@ import java.util.*;
 
 public class ProductManagement{
     public static Map<Integer, Product> products = new HashMap<Integer, Product>();
-    public static Set<Integer> uniqueID = new HashSet<>();
 
     public static void addProduct(Scanner input){
         Product newProduct = new Product();
+        while(true){
+            System.out.print("Enter product id: ");
+            int id = Integer.parseInt(input.nextLine());
+            if (products.containsKey(id)) {
+                System.out.println("Product already exists. Please try again.");
+                continue;
+            }
+            newProduct.setProductId(id);
+            break;
+        }
         newProduct.inputData(input);
         products.put(newProduct.getProductId(), newProduct);
-        uniqueID.add(newProduct.getProductId());
         System.out.println("Product added successfully");
     }
 
@@ -51,9 +59,8 @@ public class ProductManagement{
         System.out.print("Enter product ID: ");
         int productId = Integer.parseInt(input.nextLine());
 
-        if(uniqueID.contains(productId) && products.get(productId).getProductId() != productId){
+        if(products.get(productId).getProductId() != productId){
             products.remove(productId);
-            uniqueID.remove(productId);
             System.out.println("Product removed successfully");
         }
     }

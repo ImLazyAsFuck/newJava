@@ -15,7 +15,7 @@ public class Main{
 
         System.out.print("== Danh sách đơn hàng đã giao ==");
         orders.stream()
-                .filter(order -> Optional.ofNullable(order.getDeliveryDate()).isPresent())
+                .filter(order -> order.getDeliveryDate().isPresent())
                 .forEach(order -> System.out.println(order.toDisplayString()));
         System.out.println();
 

@@ -1,52 +1,53 @@
 package B9;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
-class InvalidPhoneNumberException extends Exception {
-    public InvalidPhoneNumberException(String message) {
-        super(message);
-    }
-}
-
-public class B9 {
+public class B9{
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        List<String> phones = new ArrayList<>();
-        int n = 0;
+        Map<String, BankAccount> accounts = new HashMap<>();
+        accounts.put("123", new BankAccount("123", 5000));
+        accounts.put("456", new BankAccount("456", 3000));
 
-        try {
-            System.out.print("Enter Amount of Phone Numbers: ");
-            n = Integer.parseInt(sc.nextLine());
-        } catch (NumberFormatException e) {
-            System.err.println("Lỗi: Số lượng phải là số nguyên.");
-            return;
-        }
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Chọn chức năng: 1. Gửi tiền 2. Rút tiền 3. Chuyển tiền 4. Thoát");
+            int choice = scanner.nextInt();
+            if (choice == 4) break;
 
-        for (int i = 1; i <= n; i++) {
-            System.out.print("Enter Phone Number " + i + ": ");
-            phones.add(sc.nextLine().trim());
-        }
+            System.out.print("Nhập số tài khoản: ");
+            String accId = scanner.nextLine();
+            BankAccount account = accounts.get(accId);
+            if (account == null) {
+                System.out.println("Tài khoản không tồn tại.");
+                continue;
+            }
 
-        for (String phone : phones) {
             try {
-                validatePhoneNumber(phone);
-                System.out.println("Hợp lệ: " + phone);
-            } catch (NumberFormatException e) {
-                System.err.println("Lỗi: " + phone + " chứa ký tự không hợp lệ.");
-            } catch (InvalidPhoneNumberException e) {
-                System.err.println("Lỗi: " + phone + " có độ dài không hợp lệ.");
+                if (choice == 1) {
+                    System.out.print("Nhập số tiền gửi: ");
+                    double amount = scanner.nextDouble();
+                    account.deposit(amount);
+                    System.out.println("Số dư hiện tại: " + account.getBalance());
+                } else if (choice == 2) {
+                    System.out.print("Nhập số tiền rút: ");
+                    double amount = scanner.nextDouble();
+                    account.withdraw(amount);
+                    System.out.println("Số dư hiện tại: " + account.getBalance());
+                } else if (choice == 3) {
+                    System.out.print("Nhập số tài khoản nhận: ");
+                    String toAccId = scanner.next();
+                    BankAccount toAccount = accounts.get(toAccId);
+                    System.out.print("Nhập số tiền chuyển: ");
+                    double amount = scanner.nextDouble();
+                    account.transfer(toAccount, amount);
+                    System.out.println("Chuyển tiền thành công.");
+                }
+            } catch (Exception e) {
+                System.out.println("Lỗi: " + e.getMessage());
             }
         }
-    }
-
-    public static void validatePhoneNumber(String phone) throws InvalidPhoneNumberException {
-        if (!phone.matches("\\d+")) {
-            throw new NumberFormatException();
-        }
-        if (phone.length() != 10) {
-            throw new InvalidPhoneNumberException("Số điện thoại phải có đúng 10 chữ số.");
-        }
+        scanner.close();
     }
 }

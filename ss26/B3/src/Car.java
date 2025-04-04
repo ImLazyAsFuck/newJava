@@ -3,32 +3,28 @@ public class Car{
     private int seats;
     private String color;
 
-    public static class CarBuilder{
-        private String engine;
-        private int seats;
-        private String color;
-        public CarBuilder setEngine(String engine){
-            this.engine = engine;
-            return this;
-        }
+    public String getEngine(){
+        return engine;
+    }
 
-        public CarBuilder setSeats(int seats){
-            this.seats = seats;
-            return this;
-        }
+    public void setEngine(String engine){
+        this.engine = engine;
+    }
 
-        public CarBuilder setColor(String color){
-            this.color = color;
-            return this;
-        }
+    public int getSeats(){
+        return seats;
+    }
 
-        public Car build(){
-            Car car = new Car();
-            car.engine = this.engine;
-            car.seats = this.seats;
-            car.color = this.color;
-            return car;
-        }
+    public void setSeats(int seats){
+        this.seats = seats;
+    }
+
+    public String getColor(){
+        return color;
+    }
+
+    public void setColor(String color){
+        this.color = color;
     }
 
     @Override

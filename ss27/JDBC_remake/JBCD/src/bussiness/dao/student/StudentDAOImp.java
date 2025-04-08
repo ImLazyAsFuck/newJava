@@ -17,7 +17,25 @@ public class StudentDAOImp implements StudentDAO{
 
     @Override
     public int getCountStudentByStatus(boolean status){
-        return 0;
+        Connection conn = null;
+        CallableStatement callSt = null;
+        ResultSet rs = null;
+        int count = 0;
+        try{
+            conn = ConnectionDB.openConnection();
+            callSt = conn.prepareCall("{call get_count_student_by_status(?)}");
+            ResultSet resultSet = callSt.executeQuery();
+            while(resultSet.next()){
+                count = resultSet.getInt(1);
+            }
+        }catch(SQLException e){
+            e.fillInStackTrace();
+        }catch(Exception e){
+            e.fillInStackTrace();
+        }finally{
+            ConnectionDB.closeConnection(conn, callSt);
+        }
+        return count;
     }
 
     @Override
@@ -27,7 +45,7 @@ public class StudentDAOImp implements StudentDAO{
         Student student = null;
         try{
             conn = ConnectionDB.openConnection();
-            cstmt = conn.prepareCall("{call getStudentById(?)}");
+            cstmt = conn.prepareCall("{call get_student_by_id(?)}");
             cstmt.setInt(1, id);
             ResultSet rs = cstmt.executeQuery();
             if(rs.next()){
@@ -53,14 +71,15 @@ public class StudentDAOImp implements StudentDAO{
         CallableStatement cstmt = null;
         try{
             conn = ConnectionDB.openConnection();
-            cstmt = conn.prepareCall("{call getAllStudent()}");
+            cstmt = conn.prepareCall("{call find_all_student()}");
             ResultSet rs = cstmt.executeQuery();
             students = new ArrayList<>();
             while(rs.next()){
                 Student s = new Student();
-                s.setId(rs.getInt("id"));
-                s.setName(rs.getString("name"));
-                s.setStatus(rs.getBoolean("status"));
+                s.setId(rs.getInt("student_id"));
+                s.setName(rs.getString("student_name"));
+                s.setAge(rs.getInt("student_age"));
+                s.setStatus(rs.getBoolean("student_status"));
                 students.add(s);
             }
         }catch(SQLException e){
@@ -100,7 +119,7 @@ public class StudentDAOImp implements StudentDAO{
         CallableStatement cstmt = null;
         try{
             conn = ConnectionDB.openConnection();
-            cstmt = conn.prepareCall("{call updateStudent(?,?,?,?)}");
+            cstmt = conn.prepareCall("{call update_student(?,?,?,?)}");
             cstmt.setInt(1, student.getId());
             cstmt.setString(2, student.getName());
             cstmt.setInt(3, student.getAge());

@@ -51,11 +51,11 @@ public class Student{
     }
 
     public void inputData(Scanner scanner) {
-        System.out.println("Nhập vào tên sinh viên:");
+        System.out.print("Nhập vào tên sinh viên: ");
         this.name = scanner.nextLine();
-        System.out.println("Nhập vào tuổi sinh viên:");
+        System.out.print("Nhập vào tuổi sinh viên: ");
         this.age = Integer.parseInt(scanner.nextLine());
-        System.out.println("Nhập vào trạng thái sinh viên:");
+        System.out.print("Nhập vào trạng thái sinh viên: ");
         this.status = Boolean.parseBoolean(scanner.nextLine());
     }
 

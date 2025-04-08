@@ -3,10 +3,7 @@ package src.bussiness.dao.student;
 import src.bussiness.config.ConnectionDB;
 import src.bussiness.model.Student;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +17,14 @@ public class StudentDAOImp implements StudentDAO{
         Connection conn = null;
         CallableStatement callSt = null;
         ResultSet rs = null;
-        int count = 0;
+//        int count = 0;
         try{
             conn = ConnectionDB.openConnection();
-            callSt = conn.prepareCall("{call get_count_student_by_status(?)}");
-            ResultSet resultSet = callSt.executeQuery();
-            while(resultSet.next()){
-                count = resultSet.getInt(1);
-            }
+            callSt = conn.prepareCall("{call get_count_student_by_status(?,?)}");
+            callSt.setBoolean(1, status);
+            callSt.registerOutParameter(2, java.sql.Types.INTEGER);
+            callSt.executeQuery();
+            return callSt.getInt(2);
         }catch(SQLException e){
             e.fillInStackTrace();
         }catch(Exception e){
@@ -35,7 +32,7 @@ public class StudentDAOImp implements StudentDAO{
         }finally{
             ConnectionDB.closeConnection(conn, callSt);
         }
-        return count;
+        return 0;
     }
 
     @Override
@@ -138,6 +135,21 @@ public class StudentDAOImp implements StudentDAO{
 
     @Override
     public boolean delete(Student student){
+        Connection conn = null;
+        CallableStatement cstmt = null;
+        try{
+            conn = ConnectionDB.openConnection();
+            cstmt = conn.prepareCall("{call delete_student(?)}");
+            cstmt.setInt(1, student.getId());
+            cstmt.executeUpdate();
+            return true;
+        } catch (SQLException e){
+            e.fillInStackTrace();
+        }catch(Exception e){
+            e.fillInStackTrace();
+        } finally {
+            ConnectionDB.closeConnection(conn, cstmt);
+        }
         return false;
     }
 }

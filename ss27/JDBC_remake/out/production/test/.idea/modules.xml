@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Java_Exeption_practice.iml" filepath="$PROJECT_DIR$/.idea/Java_Exeption_practice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JBCD.iml" filepath="$PROJECT_DIR$/JBCD.iml" />
     </modules>
   </component>
 </project>

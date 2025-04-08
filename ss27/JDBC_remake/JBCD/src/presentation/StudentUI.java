@@ -24,7 +24,7 @@ public class StudentUI{
             System.out.println("4. Xóa sinh viên");
             System.out.println("5. Thống kê sinh viên theo trạng thái");
             System.out.println("6. Thoát");
-            System.out.print("Lựa chọn của bạn:");
+            System.out.print("Lựa chọn của bạn: ");
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
@@ -53,11 +53,15 @@ public class StudentUI{
 
     public void displayListStudents() {
         List<Student> listStudents = studentService.getAllStudent();
+        if(listStudents.isEmpty()) {
+            System.out.println("Danh sách trống.");
+            return;
+        }
         listStudents.forEach(System.out::println);
     }
 
     public void createStudents(Scanner scanner) {
-        System.out.println("Nhập vào số sinh viên cần thêm mới:");
+        System.out.print("Nhập vào số sinh viên cần thêm mới: ");
         int size = Integer.parseInt(scanner.nextLine());
         for (int i = 0; i < size; i++) {
             Student student = new Student();
@@ -72,7 +76,7 @@ public class StudentUI{
     }
 
     public void updateStudent(Scanner scanner) {
-        System.out.println("Nhập vào mã sinh viên cần cập nhật:");
+        System.out.print("Nhập vào mã sinh viên cần cập nhật: ");
         int studentId = Integer.parseInt(scanner.nextLine());
         if (studentService.findById(studentId) != null) {
             Student student = new Student();
@@ -90,7 +94,7 @@ public class StudentUI{
     }
 
     public void deleteStudent(Scanner scanner) {
-        System.out.println("Nhập mã sinh viên cần xóa:");
+        System.out.print("Nhập mã sinh viên cần xóa: ");
         int studentId = Integer.parseInt(scanner.nextLine());
         if (studentService.findById(studentId) != null) {
             Student student = new Student();
@@ -102,7 +106,7 @@ public class StudentUI{
     }
 
     public void countStudent(Scanner scanner) {
-        System.out.println("Nhập vào trạng thái cần thống kế:");
+        System.out.print("Nhập vào trạng thái cần thống kế: ");
         boolean status = Boolean.parseBoolean(scanner.nextLine());
         System.out.printf("Trạng thái %b có %d sinh viên\n", status, studentService.getCountStudentByStatus(status));
     }

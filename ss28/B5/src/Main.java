@@ -1,80 +1,32 @@
-import java.sql.*;
-import java.util.Arrays;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/ss28";
-        String user = "root";
-        String password = "a@1234";
-
-        Connection con = null;
-        PreparedStatement insertOrderStmt = null;
-        PreparedStatement insertDetailStmt = null;
-        ResultSet generatedKeys = null;
+        Connection conn = null;
 
         try {
-            con = DriverManager.getConnection(url, user, password);
-            con.setAutoCommit(false);
-            String insertOrderSQL = "INSERT INTO Orders (customer_name) VALUES (?)";
-            insertOrderStmt = con.prepareStatement(insertOrderSQL, Statement.RETURN_GENERATED_KEYS);
-            insertOrderStmt.setString(1, "Hoang");
-            insertOrderStmt.executeUpdate();
-            generatedKeys = insertOrderStmt.getGeneratedKeys();
-            if (!generatedKeys.next()) {
-                throw new SQLException("Can't get ID from the generated keys");
-            }
-            int orderId = generatedKeys.getInt(1);
-            String insertDetailSQL = "INSERT INTO OrderDetails (order_id, product_name, quantity) VALUES (?, ?, ?)";
-            insertDetailStmt = con.prepareStatement(insertDetailSQL);
-            List<OrderDetail> details = Arrays.asList(
-                    new OrderDetail("Táo", 10),
-                    new OrderDetail("Cam", 5),
-                    new OrderDetail("Chuối", -3)
-            );
+            String url = "jdbc:mysql://localhost:3306/ss28";
+            String user = "root";
+            String password = "a@1234";
 
-            for (OrderDetail detail : details) {
-                if (detail.quantity < 0) {
-                    throw new SQLException("Amount can't be negative");
-                }
+            conn = DriverManager.getConnection(url, user, password);
+            OrderService service = new OrderService(conn);
 
-                insertDetailStmt.setInt(1, orderId);
-                insertDetailStmt.setString(2, detail.productName);
-                insertDetailStmt.setInt(3, detail.quantity);
-                insertDetailStmt.executeUpdate();
-            }
-            con.commit();
-            System.out.println("Transfer successful!");
+            Orders order = new Orders("Tokisaki Kurumi", LocalDate.now());
+            order.addDetail(new OrderDetail("Laptop", 1));
+            order.addDetail(new OrderDetail("Iphone", 3));
+
+            service.createOrder(order);
 
         } catch (SQLException e) {
-            System.err.println("Catch Error. Roll back!");
-            e.printStackTrace();
-            if (con != null) {
-                try {
-                    con.rollback();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
+            System.err.println("Connection or processing error: " + e.getMessage());
         } finally {
-            try {
-                if (generatedKeys != null) generatedKeys.close();
-                if (insertOrderStmt != null) insertOrderStmt.close();
-                if (insertDetailStmt != null) insertDetailStmt.close();
-                if (con != null) con.setAutoCommit(true);
-                if (con != null) con.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+            if (conn != null) try { conn.close(); } catch (Exception e) {
+                System.out.println("Error closing connection: " + e.getMessage());
             }
-        }
-    }
-
-    static class OrderDetail {
-        String productName;
-        int quantity;
-        public OrderDetail(String productName, int quantity) {
-            this.productName = productName;
-            this.quantity = quantity;
         }
     }
 }

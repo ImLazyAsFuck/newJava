@@ -55,7 +55,7 @@ public class Main {
         try (PreparedStatement stmt = conn.prepareStatement(updateSql)) {
             stmt.setDouble(1, amount);
             stmt.setInt(2, accountId);
-            return stmt.executeUpdate() == 1;
+            return stmt.executeUpdate() >= 1;
         }
     }
 }

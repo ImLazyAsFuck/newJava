@@ -1,0 +1,214 @@
+
+UC01
+- Tên: Đăng nhập
+- Mô tả: Người dùng nhập username và password để đăng nhập vào trang quản lý
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng chưa đăng nhập
+- Hậu diều kiện: Người dùng đăng nhập thành công và chuyển sang trang quản lý
+- Luồng chính:
+ + Người dùng nhập dữ liệu => Kiểm tra dữ liệu => Đăng nhập thành công => Chuyển sang trang home
+- Luồng phụ:
+ + User không tồn tại / người dùng nhập sai username hoặc password
+ + Tài khoản bị khoá
+
+UC02
+- Tên: Đăng xuất
+- Mô tả: Người dùng chọn đăng xuất để kết thúc chương trình
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng đã đăng nhập
+- Hậu điều kiện: Đăng xuất thành công, kết thúc chương trình
+- Luồng chính:
+ + Người dùng chọn đăng xuất => Hệ thống xoá thông tin phiên đăng nhập khỏi bộ nhớ tạm => Thông báo đã đăng xuất => kết thúc chương trình
+
+UC03
+- Tên: Danh sách phòng ban
+- Mô tả: Người dùng muốn xem danh sách các phòng ban trong hệ thống.
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng đã đăng nhập thành công vào hệ thống.
+- Hậu điều kiện: Danh sách phòng ban được hiển thị thành công trên giao diện người dùng, tương ứng với trang mà người dùng đã chọn.
+- Luồng chính:
+ + Người dùng chọn xem danh sách => chọn trang => Hiện ra danh sách phòng ban
+- Luồng phụ: 
+ + Hệ thống hiển thị không có phòng ban nào => Quay lại trang chính
+ + Người dùng nhập trang không hợp lệ => Yêu cầu người dùng nhập lại
+ + Lỗi hệ thống "Không thể tải danh sách phòng ban" => Người dùng thử lại hoặc chọn trang khác
+
+UC04
+- Tên: Phân trang phòng ban
+- Mô tả: Phân chia phòng ban thành nhiều trang khác nhau
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng đã đăng nhập vào hệ thống
+- Hậu điều kiện: Người dùng có thể xem được danh sách phòng ban theo từng trang một cách dễ dàng, trải nghiệm người dùng được tối ưu khi dữ liệu lớn.
+- Luồng chính:
+ + Người dùng mở trang quản lý phòng ban => Hệ thống hiển thị danh sách phòng ban theo trang (ví dụ 10 phòng ban/trang) => Người dùng chuyển trang để xem danh sách tiếp theo hoặc trước đó.
+- Luồng phụ: 
+ + Không có phòng ban => Hiển thị thông báo
+ + Trang không hợp lệ => Yêu cầu người dùng nhập lại
+ 
+
+UC05
+- Tên: Thêm mới phòng ban
+- Mô tả: Cho phép người dùng thêm một phòng ban mới vào hệ thống quản lý nhân sự
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng đã đăng nhập vào hệ thống
+- Hậu điều kiện: Phòng ban mới được lưu vào hệ thống và hiển thị trong danh sách phòng ban.
+- Luồng chính: 
+ + Người dùng chọn chức năng => Nhập dữ liệu phòng ban => Hệ thống kiểm tra tính hợp lệ của dữ liệu => Phòng ban được thêm vào danh sách
+- Luồng phụ:
+ +  Hệ thống hiển thị thông báo lỗi tương ứng => Quản trị viên chỉnh sửa lại thông tin.
+
+UC06
+- Tên: Cập nhật phòng ban
+- Mô tả: Cho phép người dùng sửa dữ liệu phòng ban
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng đã đăng nhập vào hệ thống
+- Hậu điều kiện: Dữ liệu phòng ban được sửa và lưu và hiển thị trong danh sách phòng ban
+- Luồng chính:
+ + Người dùng chọn chức năng cập nhật => Nhập dữ liệu mới cho phòng ban => Hệ thống kiểm tra tính hợp lệ của dữ liệu => Phòng ban đã được cập nhật
+
+UC07
+- Tên: Xoá phòng ban
+- Mô tả: Cho phép người dùng xoá 1 phòng ban
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng đã đăng nhập vào hệ thống
+- Hậu điều kiện: Dữ liệu phòng ban được xoá khỏi phòng ban
+- Luồng chính:
+ + Người dùng chọn xoá phòng ban -> Nhập ID phòng ban -> Xoá phòng ban
+- Luồng phụ:
+ + Không tìm thấy phòng ban
+ + Có lỗi khi xoá phòng ban
+
+UC08
+- Tên: Tìm kiếm phòng ban theo tên
+- Mô tả: Cho phép người dùng tìm kiếm phòng ban theo tên
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng đã đăng nhập vào hệ thống
+- Hậu điều kiện: Tìm thấy phòng ban
+- Luồng chính: 
+ + Người dùng chọn chức năng tìm kiếm -> Nhập tên phòng ban -> Hiện phòng ban đã tìm thấy
+- Luồng phụ
+ + Không tìm thấy phòng ban -> Thông báo
+
+UC09
+- Tên: Danh sách nhân viên
+- Mô tả: Người dùng muốn xem danh sách các nhân viên trong hệ thống.
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng đã đăng nhập thành công vào hệ thống.
+- Hậu điều kiện: Danh sách nhân viên được hiển thị thành công trên giao diện người dùng, tương ứng với trang mà người dùng đã chọn.
+- Luồng chính:
+ + Người dùng chọn xem danh sách -> chọn trang -> Hiện ra danh sách người dùng
+- Luồng phụ: 
+ + Hệ thống hiển thị không có người dùng nào -> Quay lại trang chính
+ + Người dùng nhập trang không hợp lệ -> Yêu cầu người dùng nhập lại
+ + Lỗi hệ thống "Không thể tải danh sách người dùng" -> Người dùng thử lại hoặc chọn trang khác
+
+UC10
+- Tên: Phân trang nhân viên
+- Mô tả: Phân chia nhân viên thành nhiều trang khác nhau
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng đã đăng nhập vào hệ thống
+- Hậu điều kiện: Người dùng có thể xem được danh sách nhân viên theo từng trang một cách dễ dàng, trải nghiệm người dùng được tối ưu khi dữ liệu lớn.
+- Luồng chính:
+ + Người dùng mở trang quản lý người dùng -> Hệ thống hiển thị danh sách phòng ban theo trang (ví dụ 10 phòng ban/trang) -> Người dùng chuyển trang để xem danh sách tiếp theo hoặc trước đó.
+- Luồng phụ: 
+ + Không có nhân viên => Hiển thị thông báo
+ + Trang không hợp lệ => Yêu cầu người dùng nhập lại
+ 
+UC11
+- Tên: Thêm mới nhân viên
+- Mô tả: Cho phép người dùng thêm một nhân viên mới
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng đã đăng nhập vào hệ thống
+- Hậu điều kiện: Nhân viên mới được lưu vào hệ thống và hiển thị trong danh sách phòng ban.
+- Luồng chính: 
+ + Người dùng chọn chức năng -> Nhập dữ liệu nhân viên -> Hệ thống kiểm tra tính hợp lệ của dữ liệu -> Nhân viên được thêm vào danh sách
+- Luồng phụ:
+ + Hệ thống hiển thị thông báo lỗi tương ứng -> Quản trị viên chỉnh sửa lại thông tin.
+
+UC12
+- Tên: Cập nhật phòng ban
+- Mô tả: Cho phép người dùng sửa dữ liệu phòng ban
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng đã đăng nhập vào hệ thống
+- Hậu điều kiện: Dữ liệu phòng ban được sửa và lưu và hiển thị trong danh sách phòng ban
+- Luồng chính:
+ + Người dùng chọn chức năng cập nhật => Nhập dữ liệu mới cho phòng ban => Hệ thống kiểm tra tính hợp lệ của dữ liệu => Phòng ban đã được cập nhật
+
+UC13
+- Tên: Xoá nhân viên
+- Mô tả: Cho phép người dùng xoá 1 nhân viên
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng đã đăng nhập vào hệ thống
+- Hậu điều kiện: Nhân viên chuyển sang trạng thái INACTIVE
+- Luồng chính:
+ + Người dùng chọn xoá nhân viên -> Nhập ID nhân viên -> Chuyển trạng thái nhân viên sang INACTIVE
+- Luồng phụ:
+ + Không tìm thấy nhân viên -> Thông báo
+ + Có lỗi khi xoá phòng ban -> Thông báo
+
+UC14
+- Tên: Tìm kiếm nhân viên theo tên hoặc khoảng tuổi
+- Mô tả: Cho phép người dùng tìm kiếm 1 hoặc nhiều nhân viên theo tên hoặc khoảng tuổi
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng đã đăng nhập vào hệ thống
+- Hậu điều kiện: Tìm thấy phòng ban
+- Luồng chính: 
+ + Người dùng chọn chức năng tìm kiếm -> Nhập tên hoặc khoảng tuổi -> Hiện nhân viên đã tìm thấy
+- Luồng phụ
+ + Không tìm thấy phòng ban -> Thông báo
+
+UC15
+- Tên: Sắp xếp nhân viên theo tên tăng dần hoặc lương giảm dần
+- Mô tả: Cho phép người dùng sắp xếp người dùng theo tên tăng dần hoặc lương giảm dần
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Người dùng đã đăng nhập vào hệ thống
+- Hậu điều kiện: Nhân viên được sắp xếp theo yêu cầu của người dùng
+- Luồng chính:
+ + Người dùng chọn chức năng sắp xếp -> Chọn tên tăng dần hoặc lương giảm dần -> Nhân viên được sắp xếp theo yêu cầu
+- Luồng phụ:
+ + Danh sách nhân viên trống -> Thông báo danh sách trống
+
+UC16
+- Tên: Thống kê số lượng nhân viên theo từng phòng ban
+- Mô tả: Hệ thống thực hiện thống kê và hiển thị số lượng nhân viên tương ứng với từng phòng ban.
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Hệ thống đã có danh sách nhân viên và phòng ban và người dùng đã đăng nhập.
+- Hậu điều kiện: Hiển thị danh sách các phòng ban kèm số lượng nhân viên tương ứng.
+- Luồng chính: 
+ + Người dùng chọn chức năng "Thống kê số lượng theo phòng ban" -> Hệ thống truy xuất dữ liệu nhân viên và nhóm theo phòng ban -> Hệ thống tính số lượng nhân viên mỗi phòng -> Hiển thị kết quả cho người dùng
+- Luồng phụ:
+ + Nếu không có dữ liệu nhân viên -> Hệ thống hiển thị thông báo "Không có dữ liệu để thống kê".
+
+UC17
+- Tên: Thống kê tổng số nhân viên toàn hệ thống
+- Mô tả: Hệ thống thực hiện thống kê và hiển thị tổng số nhân viên đang có trong hệ thống.
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Hệ thống đã có danh sách nhân viên và người dùng đã đăng nhập.
+- Hậu điều kiện: Hiển thị tổng số nhân viên hiện có trong hệ thống.
+- Luồng chính:
+ + Người dùng chọn chức năng "Thống kê tổng nhân viên" -> Hệ thống truy xuất toàn bộ dữ liệu nhân viên -> Hệ thống đếm số lượng nhân viên -> Hiển thị kết quả.
+- Luồng phụ:
+ + Nếu không có dữ liệu nhân viên -> Hệ thống hiển thị thông báo "Hiện không có nhân viên nào trong hệ thống".
+
+UC18
+- Tên: Thống kê phòng ban có nhiều nhân viên nhất
+- Mô tả: Hệ thống xác định và hiển thị phòng ban có số lượng nhân viên cao nhất.
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Hệ thống đã có danh sách nhân viên và phòng ban, và người dùng đã đăng nhập.
+- Hậu điều kiện: Hiển thị tên phòng ban có nhiều nhân viên nhất cùng số lượng tương ứng.
+- Luồng chính:
+ + Người dùng chọn chức năng "Thống kê phòng ban đông nhất" → Hệ thống truy xuất dữ liệu → Hệ thống tính số lượng nhân viên theo phòng → So sánh và xác định phòng ban nhiều nhân viên nhất → Hiển thị kết quả.
+- Luồng phụ:
+ + Nếu có nhiều phòng ban có cùng số lượng nhân viên cao nhất → Hệ thống hiển thị tất cả các phòng ban đó.
+
+UC19
+- Tên: Thống kê phòng ban có lương trung bình cao nhất
+- Mô tả: Hệ thống xác định và hiển thị phòng ban có mức lương trung bình cao nhất.
+- Tác nhân: Admin - HR
+- Tiền điều kiện: Hệ thống đã có danh sách nhân viên, lương và phòng ban; người dùng đã đăng nhập.
+- Hậu điều kiện: Hiển thị phòng ban có mức lương trung bình cao nhất cùng giá trị tương ứng.
+- Luồng chính:
+ + Người dùng chọn chức năng "Thống kê lương cao nhất theo phòng ban" -> Hệ thống truy xuất dữ liệu → Tính lương trung bình từng phòng -> So sánh để tìm phòng có lương cao nhất -> Hiển thị kết quả.
+Luồng phụ:
+ + Nếu có phòng ban không có nhân viên -> Bỏ qua khi tính trung bình.
+ + Nếu nhiều phòng có cùng mức lương cao nhất -> Hệ thống hiển thị tất cả các phòng đó

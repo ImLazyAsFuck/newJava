@@ -1,8 +1,12 @@
 package bussiness.service.userService;
 
-public class UserServiceImp implements UserService{
-    @Override
-    public void login(String username, String password){
+import bussiness.dao.userDAO.UserDAO;
+import bussiness.dao.userDAO.UserDAOImp;
 
+public class UserServiceImp implements UserService{
+    private final UserDAO userDAO = new UserDAOImp();
+    @Override
+    public boolean login(String username, String password){
+        return userDAO.login(username, password);
     }
 }

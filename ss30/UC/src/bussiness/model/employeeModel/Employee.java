@@ -18,11 +18,12 @@ public class Employee implements Inputable{
     private LocalDate birthDate;
     private String address;
     private EmployeeStatus employeeStatus;
+    private int departmentId;
 
     public Employee(){
     }
 
-    public Employee(String employeeId, String employeeName, String email, String phone, Gender gender, int salaryLevel, double salary, LocalDate birthDate, String address, EmployeeStatus status){
+    public Employee(String employeeId, String employeeName, String email, String phone, Gender gender, int salaryLevel, double salary, LocalDate birthDate, String address, EmployeeStatus employeeStatus, int departmentId){
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.email = email;
@@ -32,12 +33,29 @@ public class Employee implements Inputable{
         this.salary = salary;
         this.birthDate = birthDate;
         this.address = address;
-        this.employeeStatus = status;
+        this.employeeStatus = employeeStatus;
+        this.departmentId = departmentId;
     }
 
     @Override
     public String toString(){
         return "ID: " + employeeId + ", Name: " + employeeName + ", Email: " + email + ", Phone: " + phone;
+    }
+
+    public EmployeeStatus getEmployeeStatus(){
+        return employeeStatus;
+    }
+
+    public void setEmployeeStatus(EmployeeStatus employeeStatus){
+        this.employeeStatus = employeeStatus;
+    }
+
+    public int getDepartmentId(){
+        return departmentId;
+    }
+
+    public void setDepartmentId(int departmentId){
+        this.departmentId = departmentId;
     }
 
     public String getEmployeeId(){
@@ -132,6 +150,10 @@ public class Employee implements Inputable{
         this.birthDate = inputEmployeeBirthDate(input);
         this.address = inputEmployeeAddress(input);
         this.employeeStatus = inputEmployeeStatus(input);
+    }
+
+    private int inputGetDepartment(Scanner input){
+        switch(input.nextLine()){}
     }
 
     private String inputEmployeeId(Scanner input){

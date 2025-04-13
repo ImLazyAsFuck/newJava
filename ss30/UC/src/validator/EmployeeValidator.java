@@ -5,6 +5,7 @@ import bussiness.model.employeeModel.EmployeeStatus;
 import bussiness.model.employeeModel.Gender;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -51,6 +52,20 @@ public class EmployeeValidator{
                 }
                 UNIQUE_EMAIL.add(email);
                 return email;
+            }catch(IllegalArgumentException e){
+                System.out.println("\u001B[31mError: " + e.getMessage() + "\u001B[0m");
+            }
+        }
+    }
+
+    public static int validateGetDepartment(Scanner input, String message){
+        while(true){
+            try{
+                System.out.print(message);
+                int departmentId = Integer.parseInt(input.nextLine().trim());
+//                if(List)
+            }catch(NumberFormatException e){
+                System.out.println("\u001B[31mError: " + e.getMessage() + "\u001B[0m");
             }catch(IllegalArgumentException e){
                 System.out.println("\u001B[31mError: " + e.getMessage() + "\u001B[0m");
             }
